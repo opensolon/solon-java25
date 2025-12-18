@@ -11,7 +11,7 @@
         <relativePath />
     </parent>
 
-    <artifactId>solon-for-jdk21</artifactId>
+    <artifactId>solon-java25</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
 
@@ -23,13 +23,6 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
