@@ -1,7 +1,6 @@
-# solon-for-jdk25
+# solon-java25
 
-
-solon-for-jdk25
+此仓库主要为 solon 适配 java25 部分新特性（不方便用反射适配的）
 
 
 ```java
