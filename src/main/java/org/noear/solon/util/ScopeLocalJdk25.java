@@ -24,17 +24,7 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
     }
 
     @Override
-    public void with(T value, Runnable runnable) {
-        ref.where(ref, value).run(runnable);
-    }
-
-    @Override
-    public <R> R with(T value, Supplier<R> callable) {
-        return ref.where(ref, value).call(callable::get);
-    }
-
-    @Override
-    public <X extends Throwable> void withOrThrow(T value, RunnableTx<X> runnable) throws X {
+    public <X extends Throwable> void with(T value, RunnableTx<X> runnable) throws X {
         ref.where(ref, value).call(() -> {
             runnable.run();
             return null;
@@ -42,8 +32,21 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
     }
 
     @Override
-    public <R, X extends Throwable> R withOrThrow(T value, CallableTx<? extends R, X> callable) throws X {
+    public <R, X extends Throwable> R with(T value, CallableTx<? extends R, X> callable) throws X {
         return ref.where(ref, value).call(callable::call);
+    }
+
+    @Override
+    public <X extends Throwable> void with(T value, ConsumerTx<T, X> consumer) throws X {
+        ref.where(ref, value).call(() -> {
+            consumer.accept(ref.get());
+            return null;
+        });
+    }
+
+    @Override
+    public <R, X extends Throwable> R with(T value, FunctionTx<T, ? extends R, X> function) throws X {
+        return ref.where(ref, value).call(() -> function.apply(ref.get()));
     }
 
     @Override
