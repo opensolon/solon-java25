@@ -50,13 +50,14 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
     }
 
     @Override
-    public ScopeLocal<T> set(T value) {
+    public void set(T value) {
         log.error("ScopeLocal.set is invalid, please use ScopeLocal.with");
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void remove() {
         log.error("ScopeLocal.remove is invalid, please use ScopeLocal.with");
+        throw new UnsupportedOperationException();
     }
 }
