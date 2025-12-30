@@ -8,14 +8,13 @@ import java.util.function.Supplier;
 
 public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
     private static final Logger log = LoggerFactory.getLogger(ScopeLocalJdk25.class);
+
     private final ScopedValue<T> ref = ScopedValue.newInstance();
+    private final Class<?> applyFor;
 
-    public ScopeLocalJdk25() {
-
-    }
 
     public ScopeLocalJdk25(Class<?> applyFor) {
-
+        this.applyFor = applyFor;
     }
 
     @Override
@@ -51,13 +50,13 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
 
     @Override
     public void set(T value) {
-        log.error("ScopeLocal.set is invalid, please use ScopeLocal.with");
+        log.error("ScopeLocal.set is invalid, please use ScopeLocal.with. applyFor: {}", applyFor.getName());
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void remove() {
-        log.error("ScopeLocal.remove is invalid, please use ScopeLocal.with");
+        log.error("ScopeLocal.remove is invalid, please use ScopeLocal.with. applyFor: {}", applyFor.getName());
         throw new UnsupportedOperationException();
     }
 }
