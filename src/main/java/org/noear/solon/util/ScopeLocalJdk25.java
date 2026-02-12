@@ -19,7 +19,11 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
 
     @Override
     public T get() {
-        return ref.get();
+        if (ref.isBound()) {
+            return ref.get();
+        } else {
+            return null;
+        }
     }
 
     @Override
