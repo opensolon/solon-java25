@@ -27,6 +27,20 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
     }
 
     @Override
+    public T getOr(Supplier<T> supplier) {
+        T tmp = null;
+        if (ref.isBound()) {
+            tmp = ref.get();
+        }
+
+        if (tmp == null) {
+            return supplier.get();
+        } else {
+            return tmp;
+        }
+    }
+
+    @Override
     public <X extends Throwable> void with(T value, RunnableTx<X> runnable) throws X {
         ref.where(ref, value).call(() -> {
             runnable.run();
@@ -50,17 +64,5 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
     @Override
     public <R, X extends Throwable> R with(T value, FunctionTx<T, ? extends R, X> function) throws X {
         return ref.where(ref, value).call(() -> function.apply(ref.get()));
-    }
-
-    @Override
-    public void set(T value) {
-        log.error("ScopeLocal.set is invalid, please use ScopeLocal.with. applyFor: {}", applyFor.getName());
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void remove() {
-        log.error("ScopeLocal.remove is invalid, please use ScopeLocal.with. applyFor: {}", applyFor.getName());
-        throw new UnsupportedOperationException();
     }
 }
