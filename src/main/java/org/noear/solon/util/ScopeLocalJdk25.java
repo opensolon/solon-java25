@@ -26,6 +26,7 @@ public class ScopeLocalJdk25<T> implements ScopeLocal<T> {
         }
     }
 
+
     @Override
     public T getOr(Supplier<T> supplier) {
         T tmp = null;
