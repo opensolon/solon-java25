@@ -1,4 +1,9 @@
 
+### v4.0.3
+
+* 添加 solon ScopeLocalJdk25 自动加载机制
+
+
 ### v3.9.1
 
 * 修复 `solon-java25` ScopeLocalJdk25 NoSuchElementException 异常问题
